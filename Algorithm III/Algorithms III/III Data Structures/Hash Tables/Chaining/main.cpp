@@ -9,7 +9,17 @@
 #include <iostream>
 
 #define NIL 0
-#define MAX_SIZE 1000
+
+/*
+ Hash Function - Division Method
+ Let m be the size of the hash table
+ m should not be a power of 2 or 10 because it has a lot of common factors
+ m should be a prime number not too close to power of 2 or 10
+ ex. n = 2000
+ target load factor is 3
+ m = 701 because it is near n/3 but not near any power of 2 or 10
+*/
+#define MAX_SIZE 701
 
 class Node {
 public:
@@ -84,7 +94,7 @@ int main(int argc, const char * argv[]) {
     
     List** T = new List*[MAX_SIZE];
     initializeHT(T);
-    
+        
     hashInsert(T, new Node(13, 1));
     hashInsert(T, new Node(20, 2));
     hashInsert(T, new Node(22, 3));
