@@ -27,9 +27,11 @@ int b = (rand() % p);
 int a = ((rand() % (p-1)) + 1);
 int m2 = 10000;
 
-// R is the size of vector based from the key
-// M is the size of the hash table which is a prime
+// r is the size of vector based from the key
 int hashFunc(int A[r], int K[r]) {
+    // A[] = <a1, a2, a3, a4>
+    // Values of Ai should range from 0 to m1 - 1
+    // m1 is the size of the hash table which is a prime
     int h = 0;
     for (int i = 0; i < 4; ++i) {
         h += (A[i] * K[i]) % m1;
@@ -45,7 +47,7 @@ long long hashFunc2(long long k) {
     // use Mersenne Prime Number => (2 ^ p) - 1
     // b should come from the set of {0,1,...,p-1}
     // a should come from the set of {1,2,...,p-1}
-    // m is the size of hash table which can be arbitrary and not necessarily a prime (p > m)
+    // m2 is the size of hash table which can be arbitrary and not necessarily a prime (p > m2)
 
     long long h = (((a * k) + b) % p) % m2;
     
