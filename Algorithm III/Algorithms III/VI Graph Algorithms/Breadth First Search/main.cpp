@@ -160,10 +160,10 @@ int main(int argc, const char * argv[]) {
     
     std::cout << "Shortest path from 1 to 4: ";
     printPath(G, G->V[1], G->V[4]);
-    std::cout << '\n';
+    std::cout << "| distance = " << G->V[4]->d << '\n';
     
     std::cout << "Shortest path from 1 to 5: ";
     printPath(G, G->V[1], G->V[5]);
-    std::cout << '\n';
+    std::cout << "| distance = " << G->V[5]->d << '\n';
     return 0;
 }
