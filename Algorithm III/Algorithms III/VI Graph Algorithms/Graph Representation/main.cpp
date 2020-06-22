@@ -68,32 +68,46 @@ void printList(List* L) {
 
 class Graph {
 public:
-    List* V[MAX_V_SIZE + 1]; // Adjacency list
-    Edge* E[MAX_E_SIZE * MAX_E_SIZE + 1]; // Array of edges
+    List* Adj[MAX_V_SIZE + 1]; // Adjacency list
+    
+    int vertexCtr;
+    Node* V[MAX_V_SIZE + 1]; // Array of vertices
+    
     int edgeCtr;
+    Edge* E[MAX_E_SIZE * MAX_E_SIZE + 1]; // Array of edges
+    
     Graph() {
-        for (int i = 1; i <= MAX_V_SIZE; ++i) {
+        vertexCtr = 0;
+        for (int i = 0; i <= MAX_V_SIZE; ++i) {
+            Adj[i] = NIL;
             V[i] = NIL;
         }
-        for (int i = 0; i <= MAX_E_SIZE; ++i) {
-            E[i] = NIL;
-        }
         edgeCtr = 0;
+        for (int i = 0; i <= MAX_E_SIZE; ++i)
+            E[i] = NIL;
     }
 };
 
 void addEdge(Graph* G, Node* u, Node* v, int s) {
     // connection from u to v
-    if (G->V[u->key] == NIL)
-        G->V[u->key] = new List();
-    insert(G->V[u->key], v);
+    if (G->Adj[u->key] == NIL)
+        G->Adj[u->key] = new List();
+    insert(G->Adj[u->key], v);
     
     //connection from v to u
-    /* Uncomment if you want bi-directional graph
-     if (G->V[v->key] == NIL)
-        G->V[v->key] = new List();
-     insert(G->V[v->key], u);
-     */
+    if (G->Adj[v->key] == NIL)
+        G->Adj[v->key] = new List();
+    insert(G->Adj[v->key], u);
+    
+    if (G->V[u->key] == NIL) {
+        G->V[u->key] = u;
+        G->vertexCtr++;
+    }
+    
+    if (G->V[v->key] == NIL) {
+        G->V[v->key] = v;
+        G->vertexCtr++;
+    }
     
     G->E[G->edgeCtr++] = new Edge(u, v, s);
 }
@@ -101,7 +115,7 @@ void addEdge(Graph* G, Node* u, Node* v, int s) {
 void printGraph(Graph* G) {
     for (int i = 1; i <= MAX_V_SIZE; ++i) {
         std::cout << i << ": ";
-        printList(G->V[i]);
+        printList(G->Adj[i]);
         std::cout << '\n';
     }
 }
