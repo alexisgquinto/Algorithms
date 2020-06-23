@@ -36,18 +36,6 @@ public:
     }
 };
 
-class Edge {
-public:
-    Node* u;
-    Node* v;
-    int satellite;
-    Edge(Node* u, Node* v, int s) {
-        this->u = u;
-        this->v = v;
-        satellite = s;
-    }
-};
-
 class List {
 public:
     Node* nil;
@@ -111,18 +99,20 @@ void bfs(Graph* G, Node* s) {
     std::queue<Node*> Q;
     Q.push(s);
     while(!Q.empty()) {
-        Node* u = Q.front();
+        Node* u = G->V[Q.front()->key];
         Q.pop();
         
-        Node* v = G->Adj[u->key]->nil->next;
-        while (v != G->Adj[u->key]->nil) {
-            if (G->V[v->key]->color == WHITE) {
-                G->V[v->key]->color = GRAY;
-                G->V[v->key]->d = G->V[u->key]->d + 1;
-                G->V[v->key]->parent = G->V[u->key];
+        List* L = G->Adj[u->key];
+        Node* node = L->nil->next;
+        while (node != L->nil) {
+            Node* v = G->V[node->key];
+            if (v->color == WHITE) {
+                v->color = GRAY;
+                v->d = u->d + 1;
+                v->parent = u;
                 Q.push(v);
             }
-            v = v->next;
+            node = node->next;
         }
         u->color = BLACK;
     }
