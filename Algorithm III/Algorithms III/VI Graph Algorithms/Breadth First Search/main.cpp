@@ -21,15 +21,17 @@ public:
     Node* next;
     Node* prev;
     int key;
+    int satellite;
     int color;
-    Node* parent;
     int d;
+    Node* parent;
     Node(int k) {
-        key = k;
         next = NIL;
         prev = NIL;
-        d = 0;
+        key = k;
+        satellite = 0;
         color = WHITE;
+        d = 0;
         parent = NIL;
     }
 };
@@ -79,26 +81,24 @@ public:
     }
 };
 
-void addEdge(Graph* G, Node* u, Node* v, int s) {
-    // connection from u to v
-    if (G->Adj[u->key] == NIL)
-        G->Adj[u->key] = new List();
-    insert(G->Adj[u->key], v);
-    
-    if (G->V[u->key] == NIL) {
-        G->V[u->key] = u;
-        G->vertexCtr++;
-    }
-    
-    if (G->V[v->key] == NIL) {
-        G->V[v->key] = v;
+void addVertex(Graph* G, int k, int s) {
+    if (G->V[k] == NIL) {
+        G->V[k] = new Node(k);
+        G->V[k]->satellite = s;
         G->vertexCtr++;
     }
 }
 
+void addEdge(Graph* G, int u, int v) {
+    // connection from u to v
+    if (G->Adj[u] == NIL)
+        G->Adj[u] = new List();
+    insert(G->Adj[u], new Node(v));
+}
+
 void bfs(Graph* G, Node* s) {
-    for (int i = 0; i < MAX_V_SIZE; ++i) {
-        if (G->V[i] != NIL && s != G->V[i]) {
+    for (int i = 1; i <= MAX_V_SIZE; ++i) {
+        if (G->V[i] != NIL) {
             G->V[i]->color = WHITE;
             G->V[i]->parent = NIL;
             G->V[i]->d = INT_MAX;
@@ -116,10 +116,10 @@ void bfs(Graph* G, Node* s) {
         
         Node* v = G->Adj[u->key]->nil->next;
         while (v != G->Adj[u->key]->nil) {
-            if (v->color == WHITE) {
-                v->color = GRAY;
-                v->d = u->d + 1;
-                v->parent = u;
+            if (G->V[v->key]->color == WHITE) {
+                G->V[v->key]->color = GRAY;
+                G->V[v->key]->d = G->V[u->key]->d + 1;
+                G->V[v->key]->parent = G->V[u->key];
                 Q.push(v);
             }
             v = v->next;
@@ -143,27 +143,37 @@ int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!\n";
     
     Graph* G = new Graph();
-    addEdge(G, new Node(1), new Node(2), 0);
-    addEdge(G, new Node(1), new Node(4), 0);
-    addEdge(G, new Node(2), new Node(5), 0);
-    addEdge(G, new Node(3), new Node(6), 0);
-    addEdge(G, new Node(3), new Node(5), 0);
-    addEdge(G, new Node(4), new Node(2), 0);
-    addEdge(G, new Node(5), new Node(4), 0);
-    addEdge(G, new Node(6), new Node(6), 0);
+    
+    for (int i = 1; i <= MAX_V_SIZE; ++i) {
+        addVertex(G, i, 0);
+    }
+
+    addEdge(G, 1, 2);
+    addEdge(G, 1, 4);
+    addEdge(G, 2, 5);
+    addEdge(G, 3, 6);
+    addEdge(G, 3, 5);
+    addEdge(G, 4, 2);
+    addEdge(G, 5, 4);
+    addEdge(G, 6, 6);
+    
+    bfs(G, G->V[3]);
+    std::cout << "Shortest path from 3 to 2: ";
+    printPath(G, G->V[3], G->V[2]);
+    std::cout << "| distance = " << G->V[2]->d << '\n';
     
     bfs(G, G->V[1]);
-    
     std::cout << "Shortest path from 1 to 6: ";
     printPath(G, G->V[1], G->V[6]);
     std::cout << '\n';
-    
+
     std::cout << "Shortest path from 1 to 4: ";
     printPath(G, G->V[1], G->V[4]);
     std::cout << "| distance = " << G->V[4]->d << '\n';
-    
+
     std::cout << "Shortest path from 1 to 5: ";
     printPath(G, G->V[1], G->V[5]);
     std::cout << "| distance = " << G->V[5]->d << '\n';
+    
     return 0;
 }

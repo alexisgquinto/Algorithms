@@ -21,10 +21,12 @@ public:
     Node* next;
     Node* prev;
     int key;
+    int satellite;
     Node(int k) {
-        key = k;
         next = NIL;
         prev = NIL;
+        key = k;
+        satellite = 0;
     }
 };
 
@@ -33,10 +35,10 @@ public:
     Node* u;
     Node* v;
     int satellite;
-    Edge(Node* u, Node* v, int s) {
+    Edge(Node* u, Node* v) {
         this->u = u;
         this->v = v;
-        satellite = s;
+        satellite = 0;
     }
 };
 
@@ -88,28 +90,26 @@ public:
     }
 };
 
-void addEdge(Graph* G, Node* u, Node* v, int s) {
+void addVertex(Graph* G, int k, int s) {
+    if (G->V[k] == NIL) {
+        G->V[k] = new Node(k);
+        G->V[k]->satellite = s;
+        G->vertexCtr++;
+    }
+}
+
+void addEdge(Graph* G, int u, int v) {
     // connection from u to v
-    if (G->Adj[u->key] == NIL)
-        G->Adj[u->key] = new List();
-    insert(G->Adj[u->key], v);
+    if (G->Adj[u] == NIL)
+        G->Adj[u] = new List();
+    insert(G->Adj[u], new Node(v));
     
     //connection from v to u
-    if (G->Adj[v->key] == NIL)
-        G->Adj[v->key] = new List();
-    insert(G->Adj[v->key], u);
+    if (G->Adj[v] == NIL)
+        G->Adj[v] = new List();
+    insert(G->Adj[v], new Node(u));
     
-    if (G->V[u->key] == NIL) {
-        G->V[u->key] = u;
-        G->vertexCtr++;
-    }
-    
-    if (G->V[v->key] == NIL) {
-        G->V[v->key] = v;
-        G->vertexCtr++;
-    }
-    
-    G->E[G->edgeCtr++] = new Edge(u, v, s);
+    G->E[G->edgeCtr++] = new Edge(new Node(u), new Node(v));
 }
 
 void printGraph(Graph* G) {
@@ -124,14 +124,19 @@ int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!\n";
     
     Graph* G = new Graph();
-    addEdge(G, new Node(1), new Node(2), 0);
-    addEdge(G, new Node(1), new Node(4), 0);
-    addEdge(G, new Node(2), new Node(5), 0);
-    addEdge(G, new Node(3), new Node(6), 0);
-    addEdge(G, new Node(3), new Node(5), 0);
-    addEdge(G, new Node(4), new Node(2), 0);
-    addEdge(G, new Node(5), new Node(4), 0);
-    addEdge(G, new Node(6), new Node(6), 0);
+    
+    for (int i = 1; i <= MAX_V_SIZE; ++i) {
+        addVertex(G, i, 0);
+    }
+
+    addEdge(G, 1, 2);
+    addEdge(G, 1, 4);
+    addEdge(G, 2, 5);
+    addEdge(G, 3, 6);
+    addEdge(G, 3, 5);
+    addEdge(G, 4, 2);
+    addEdge(G, 5, 4);
+    addEdge(G, 6, 6);
     
     printGraph(G);
     
