@@ -27,6 +27,7 @@
 		5E6B555024913152006078D1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B554F24913152006078D1 /* main.cpp */; };
 		5E6B555B24913C32006078D1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B555A24913C32006078D1 /* main.cpp */; };
 		5E93549E24A3B120003A4A43 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E93549D24A3B120003A4A43 /* main.cpp */; };
+		5E9354B424A5AF7C003A4A43 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E9354B324A5AF7C003A4A43 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -228,6 +229,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		5E9354A424A5AF1E003A4A43 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		5E9354AF24A5AF7C003A4A43 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +292,9 @@
 		5E6B555A24913C32006078D1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5E93549B24A3B120003A4A43 /* Depth First Search */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Depth First Search"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E93549D24A3B120003A4A43 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5E9354A624A5AF1E003A4A43 /* Topological sort */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Topological sort"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E9354B124A5AF7C003A4A43 /* Topological Sort */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Topological Sort"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E9354B324A5AF7C003A4A43 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +452,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5E9354A324A5AF1E003A4A43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E9354AE24A5AF7C003A4A43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -466,6 +502,8 @@
 				5E597039249FA0ED00AC604B /* Graph Representation */,
 				5E59704424A104C600AC604B /* Breadth First Search */,
 				5E93549B24A3B120003A4A43 /* Depth First Search */,
+				5E9354A624A5AF1E003A4A43 /* Topological sort */,
+				5E9354B124A5AF7C003A4A43 /* Topological Sort */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -590,6 +628,7 @@
 				5E59703A249FA0ED00AC604B /* Graph Representation */,
 				5E59704524A104C600AC604B /* Breadth First Search */,
 				5E93549C24A3B120003A4A43 /* Depth First Search */,
+				5E9354B224A5AF7C003A4A43 /* Topological Sort */,
 			);
 			path = "VI Graph Algorithms";
 			sourceTree = "<group>";
@@ -719,6 +758,14 @@
 				5E93549D24A3B120003A4A43 /* main.cpp */,
 			);
 			path = "Depth First Search";
+			sourceTree = "<group>";
+		};
+		5E9354B224A5AF7C003A4A43 /* Topological Sort */ = {
+			isa = PBXGroup;
+			children = (
+				5E9354B324A5AF7C003A4A43 /* main.cpp */,
+			);
+			path = "Topological Sort";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1098,6 +1145,40 @@
 			productReference = 5E93549B24A3B120003A4A43 /* Depth First Search */;
 			productType = "com.apple.product-type.tool";
 		};
+		5E9354A524A5AF1E003A4A43 /* Topological sort */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E9354AC24A5AF1E003A4A43 /* Build configuration list for PBXNativeTarget "Topological sort" */;
+			buildPhases = (
+				5E9354A224A5AF1E003A4A43 /* Sources */,
+				5E9354A324A5AF1E003A4A43 /* Frameworks */,
+				5E9354A424A5AF1E003A4A43 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Topological sort";
+			productName = "Topological sort";
+			productReference = 5E9354A624A5AF1E003A4A43 /* Topological sort */;
+			productType = "com.apple.product-type.tool";
+		};
+		5E9354B024A5AF7C003A4A43 /* Topological Sort */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E9354B524A5AF7C003A4A43 /* Build configuration list for PBXNativeTarget "Topological Sort" */;
+			buildPhases = (
+				5E9354AD24A5AF7C003A4A43 /* Sources */,
+				5E9354AE24A5AF7C003A4A43 /* Frameworks */,
+				5E9354AF24A5AF7C003A4A43 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Topological Sort";
+			productName = "Topological Sort";
+			productReference = 5E9354B124A5AF7C003A4A43 /* Topological Sort */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1173,6 +1254,12 @@
 					5E93549A24A3B120003A4A43 = {
 						CreatedOnToolsVersion = 11.5;
 					};
+					5E9354A524A5AF1E003A4A43 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					5E9354B024A5AF7C003A4A43 = {
+						CreatedOnToolsVersion = 11.5;
+					};
 				};
 			};
 			buildConfigurationList = 5E3E26C424886F2C00125D51 /* Build configuration list for PBXProject "Algorithms III" */;
@@ -1210,6 +1297,8 @@
 				5E597038249FA0ED00AC604B /* Graph Representation */,
 				5E59704324A104C600AC604B /* Breadth First Search */,
 				5E93549A24A3B120003A4A43 /* Depth First Search */,
+				5E9354A524A5AF1E003A4A43 /* Topological sort */,
+				5E9354B024A5AF7C003A4A43 /* Topological Sort */,
 			);
 		};
 /* End PBXProject section */
@@ -1386,6 +1475,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E93549E24A3B120003A4A43 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E9354A224A5AF1E003A4A43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E9354AD24A5AF7C003A4A43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E9354B424A5AF7C003A4A43 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1853,6 +1957,38 @@
 			};
 			name = Release;
 		};
+		5E9354AA24A5AF1E003A4A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5E9354AB24A5AF1E003A4A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5E9354B624A5AF7C003A4A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5E9354B724A5AF7C003A4A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2059,6 +2195,24 @@
 			buildConfigurations = (
 				5E93549F24A3B120003A4A43 /* Debug */,
 				5E9354A024A3B120003A4A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E9354AC24A5AF1E003A4A43 /* Build configuration list for PBXNativeTarget "Topological sort" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E9354AA24A5AF1E003A4A43 /* Debug */,
+				5E9354AB24A5AF1E003A4A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E9354B524A5AF7C003A4A43 /* Build configuration list for PBXNativeTarget "Topological Sort" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E9354B624A5AF7C003A4A43 /* Debug */,
+				5E9354B724A5AF7C003A4A43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
