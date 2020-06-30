@@ -38,12 +38,12 @@ public:
     }
 };
 
-class Vertex {
+class Node {
 public:
-    Vertex* next;
-    Vertex* prev;
+    Node* next;
+    Node* prev;
     int key;
-    Vertex(int k) {
+    Node(int k) {
         next = NIL;
         prev = NIL;
         key = k;
@@ -52,15 +52,15 @@ public:
 
 class List {
 public:
-    Vertex* nil;
+    Node* nil;
     List() {
-        nil = new Vertex(-1);
+        nil = new Node(-1);
         nil->next = nil;
         nil->prev = nil;
     }
 };
 
-void insert(List* L, Vertex* x) {
+void insert(List* L, Node* x) {
     x->next = L->nil->next;
     L->nil->next->prev = x;
     x->prev = L->nil;
@@ -69,7 +69,7 @@ void insert(List* L, Vertex* x) {
 
 void printList(List* L) {
     if (L == NIL) return;
-    Vertex* x = L->nil->next;
+    Node* x = L->nil->next;
     while(x != L->nil) {
         std::cout << x->key << " ";
         x = x->next;
@@ -97,12 +97,12 @@ void addEdge(Graph* G, int u, int v) {
     // connection from u to v
     if (G->Adj[u] == NIL)
         G->Adj[u] = new List();
-    insert(G->Adj[u], new Vertex(v));
+    insert(G->Adj[u], new Node(v));
     
     //connection from v to u
     if (G->Adj[v] == NIL)
         G->Adj[v] = new List();
-    insert(G->Adj[v], new Vertex(u));
+    insert(G->Adj[v], new Node(u));
     
     G->E[G->edgeCtr++] = new Edge(new Vertex(u), new Vertex(v));
 }

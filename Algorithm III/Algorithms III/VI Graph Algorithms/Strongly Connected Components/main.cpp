@@ -33,12 +33,12 @@ public:
     }
 };
 
-class Vertex {
+class Node {
 public:
-    Vertex* next;
-    Vertex* prev;
+    Node* next;
+    Node* prev;
     int key;
-    Vertex(int k) {
+    Node(int k) {
         key = k;
         next = NIL;
         prev = NIL;
@@ -47,15 +47,15 @@ public:
 
 class List {
 public:
-    Vertex* nil;
+    Node* nil;
     List() {
-        nil = new Vertex(-1);
+        nil = new Node(-1);
         nil->next = nil;
         nil->prev = nil;
     }
 };
 
-void insert(List* L, Vertex* x) {
+void insert(List* L, Node* x) {
     x->next = L->nil->next;
     L->nil->next->prev = x;
     x->prev = L->nil;
@@ -77,7 +77,7 @@ void addEdge(Graph* G, int u, int v) {
     List* L = G->Adj[u];
     if (L == NIL)
         L = new List();
-    insert(L, new Vertex(v));
+    insert(L, new Node(v));
 }
 
 int main(int argc, const char * argv[]) {
