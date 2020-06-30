@@ -14,20 +14,16 @@
 #define GRAY 1
 #define BLACK 2
 
-class Node {
+class Vertex {
 public:
-    Node* next;
-    Node* prev;
     int key;
     char* satellite;
     int d;
     int f;
     int color;
-    Node* parent;
-    Node(int k) {
+    Vertex* parent;
+    Vertex(int k) {
         key = k;
-        next = NIL;
-        prev = NIL;
         satellite = NIL;
         d = 0;
         f = 0;
@@ -35,17 +31,29 @@ public:
     }
 };
 
+class Vertex {
+public:
+    Vertex* next;
+    Vertex* prev;
+    int key;
+    Vertex(int k) {
+        key = k;
+        next = NIL;
+        prev = NIL;
+    }
+};
+
 class List {
 public:
-    Node* nil;
+    Vertex* nil;
     List() {
-        nil = new Node(-1);
+        nil = new Vertex(-1);
         nil->next = nil;
         nil->prev = nil;
     }
 };
 
-void insert(List* L, Node* x) {
+void insert(List* L, Vertex* x) {
     x->next = L->nil->next;
     L->nil->next->prev = x;
     x->prev = L->nil;
@@ -56,19 +64,13 @@ int globalTime;
 
 class Graph {
 public:
-    List* Adj[MAX_V_SIZE + 1];
-    Node* V[MAX_V_SIZE + 1];
-    Graph() {
-        for (int i = 0; i <= MAX_V_SIZE; ++i) {
-            Adj[i] = NIL;
-            V[i] = NIL;
-        }
-    }
+    List* Adj[MAX_V_SIZE + 1] = {};
+    Vertex* V[MAX_V_SIZE + 1] = {};
 };
 
 void addVertex(Graph* G, int u, char* s) {
     if (G->V[u] == NIL) {
-        G->V[u] = new Node(u);
+        G->V[u] = new Vertex(u);
         G->V[u]->satellite = s;
     }
 }
@@ -76,19 +78,19 @@ void addVertex(Graph* G, int u, char* s) {
 void addEdge(Graph* G, int u, int v) {
     if (G->Adj[u] == NIL)
         G->Adj[u] = new List();
-    insert(G->Adj[u], new Node(v));
+    insert(G->Adj[u], new Vertex(v));
 }
 
-void dfsVisit(Graph* G, Node* u, List* L) {
+void dfsVisit(Graph* G, Vertex* u, List* L) {
     globalTime++;
     u->d = globalTime;
     u->color = GRAY;
     
     List* adjL = G->Adj[u->key];
     if (adjL != NIL) {
-        Node* node = adjL->nil->next;
+        Vertex* node = adjL->nil->next;
         while(node != adjL->nil) {
-            Node* v = G->V[node->key];
+            Vertex* v = G->V[node->key];
             if (v->color == WHITE) {
                 v->parent = u;
                 dfsVisit(G, v, L);
@@ -99,7 +101,7 @@ void dfsVisit(Graph* G, Node* u, List* L) {
     u->color = BLACK;
     globalTime++;
     u->f = globalTime;
-    insert(L, new Node(u->key));
+    insert(L, new Vertex(u->key));
 }
 
 void dfs(Graph* G, List* L) {
@@ -113,7 +115,7 @@ void dfs(Graph* G, List* L) {
             dfsVisit(G, G->V[i], L);
 }
 
-void printPath(Graph* G, Node* s, Node* v) {
+void printPath(Graph* G, Vertex* s, Vertex* v) {
     if (v == s) {
         std::cout << s->key << " ";
     } else if (v->parent == NIL) {
@@ -126,7 +128,7 @@ void printPath(Graph* G, Node* s, Node* v) {
 
 void printList(Graph* G, List* L) {
     if (L == NIL) return;
-    Node* x = L->nil->next;
+    Vertex* x = L->nil->next;
     while(x != L->nil) {
         std::cout << G->V[x->key]->satellite << " ";
         x = x->next;

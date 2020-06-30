@@ -16,15 +16,11 @@
 // Adjacency Matrix is preferred when graph is dense meaning |E| is nearly V^2 or
 // if we need to tell quickly if there is an edge connecting given two vertices
 
-class Node {
+class Vertex {
 public:
-    Node* next;
-    Node* prev;
     int key;
     int satellite;
-    Node(int k) {
-        next = NIL;
-        prev = NIL;
+    Vertex(int k) {
         key = k;
         satellite = 0;
     }
@@ -32,27 +28,39 @@ public:
 
 class Edge {
 public:
-    Node* u;
-    Node* v;
+    Vertex* u;
+    Vertex* v;
     int satellite;
-    Edge(Node* u, Node* v) {
+    Edge(Vertex* u, Vertex* v) {
         this->u = u;
         this->v = v;
         satellite = 0;
     }
 };
 
+class Vertex {
+public:
+    Vertex* next;
+    Vertex* prev;
+    int key;
+    Vertex(int k) {
+        next = NIL;
+        prev = NIL;
+        key = k;
+    }
+};
+
 class List {
 public:
-    Node* nil;
+    Vertex* nil;
     List() {
-        nil = new Node(-1);
+        nil = new Vertex(-1);
         nil->next = nil;
         nil->prev = nil;
     }
 };
 
-void insert(List* L, Node* x) {
+void insert(List* L, Vertex* x) {
     x->next = L->nil->next;
     L->nil->next->prev = x;
     x->prev = L->nil;
@@ -61,7 +69,7 @@ void insert(List* L, Node* x) {
 
 void printList(List* L) {
     if (L == NIL) return;
-    Node* x = L->nil->next;
+    Vertex* x = L->nil->next;
     while(x != L->nil) {
         std::cout << x->key << " ";
         x = x->next;
@@ -70,29 +78,16 @@ void printList(List* L) {
 
 class Graph {
 public:
-    List* Adj[MAX_V_SIZE + 1]; // Adjacency list
-    
-    int vertexCtr;
-    Node* V[MAX_V_SIZE + 1]; // Array of vertices
-    
-    int edgeCtr;
-    Edge* E[MAX_E_SIZE * MAX_E_SIZE + 1]; // Array of edges
-    
-    Graph() {
-        vertexCtr = 0;
-        for (int i = 0; i <= MAX_V_SIZE; ++i) {
-            Adj[i] = NIL;
-            V[i] = NIL;
-        }
-        edgeCtr = 0;
-        for (int i = 0; i <= MAX_E_SIZE; ++i)
-            E[i] = NIL;
-    }
+    int vertexCtr = 0;
+    int edgeCtr = 0;
+    Vertex* V[MAX_V_SIZE + 1] = {}; // Array of vertices
+    Edge* E[MAX_E_SIZE * MAX_E_SIZE + 1] = {}; // Array of edges
+    List* Adj[MAX_V_SIZE + 1] = {}; // Adjacency list
 };
 
 void addVertex(Graph* G, int k, int s) {
     if (G->V[k] == NIL) {
-        G->V[k] = new Node(k);
+        G->V[k] = new Vertex(k);
         G->V[k]->satellite = s;
         G->vertexCtr++;
     }
@@ -102,14 +97,14 @@ void addEdge(Graph* G, int u, int v) {
     // connection from u to v
     if (G->Adj[u] == NIL)
         G->Adj[u] = new List();
-    insert(G->Adj[u], new Node(v));
+    insert(G->Adj[u], new Vertex(v));
     
     //connection from v to u
     if (G->Adj[v] == NIL)
         G->Adj[v] = new List();
-    insert(G->Adj[v], new Node(u));
+    insert(G->Adj[v], new Vertex(u));
     
-    G->E[G->edgeCtr++] = new Edge(new Node(u), new Node(v));
+    G->E[G->edgeCtr++] = new Edge(new Vertex(u), new Vertex(v));
 }
 
 void printGraph(Graph* G) {

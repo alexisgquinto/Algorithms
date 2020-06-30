@@ -16,18 +16,14 @@
 #define GRAY 1
 #define BLACK 2
 
-class Node {
+class Vertex {
 public:
-    Node* next;
-    Node* prev;
     int key;
     int satellite;
     int color;
     int d;
-    Node* parent;
-    Node(int k) {
-        next = NIL;
-        prev = NIL;
+    Vertex* parent;
+    Vertex(int k) {
         key = k;
         satellite = 0;
         color = WHITE;
@@ -36,17 +32,29 @@ public:
     }
 };
 
+class Vertex {
+public:
+    Vertex* next;
+    Vertex* prev;
+    int key;
+    Vertex(int k) {
+        next = NIL;
+        prev = NIL;
+        key = k;
+    }
+};
+
 class List {
 public:
-    Node* nil;
+    Vertex* nil;
     List() {
-        nil = new Node(-1);
+        nil = new Vertex(-1);
         nil->next = nil;
         nil->prev = nil;
     }
 };
 
-void insert(List* L, Node* x) {
+void insert(List* L, Vertex* x) {
     x->next = L->nil->next;
     L->nil->next->prev = x;
     x->prev = L->nil;
@@ -55,62 +63,49 @@ void insert(List* L, Node* x) {
 
 class Graph {
 public:
-    List* Adj[MAX_V_SIZE + 1]; // Adjacency list
-    
-    int vertexCtr;
-    Node* V[MAX_V_SIZE + 1]; // Array of vertices
-    
-    Graph() {
-        vertexCtr = 0;
-        for (int i = 0; i <= MAX_V_SIZE; ++i) {
-            Adj[i] = NIL;
-            V[i] = NIL;
-        }
-    }
+    List* Adj[MAX_V_SIZE + 1] = {}; // Adjacency list
+    Vertex* V[MAX_V_SIZE + 1] = {}; // Array of vertices
 };
 
-void addVertex(Graph* G, int k, int s) {
-    if (G->V[k] == NIL) {
-        G->V[k] = new Node(k);
-        G->V[k]->satellite = s;
-        G->vertexCtr++;
-    }
+void addVertex(Graph* G, int k) {
+    if (G->V[k] == NIL)
+        G->V[k] = new Vertex(k);
 }
 
 void addEdge(Graph* G, int u, int v) {
-    // connection from u to v
     if (G->Adj[u] == NIL)
         G->Adj[u] = new List();
-    insert(G->Adj[u], new Node(v));
+    insert(G->Adj[u], new Vertex(v));
 }
 
-void bfs(Graph* G, Node* s) {
+void bfs(Graph* G, Vertex* s) {
     for (int i = 1; i <= MAX_V_SIZE; ++i) {
-        if (G->V[i] != NIL) {
-            G->V[i]->color = WHITE;
-            G->V[i]->parent = NIL;
-            G->V[i]->d = INT_MAX;
+        Vertex* u = G->V[i];
+        if (u != NIL) {
+            u->color = WHITE;
+            u->parent = NIL;
+            u->d = INT_MAX;
         }
     }
     s->color = GRAY;
     s->d = 0;
     s->parent = NIL;
     
-    std::queue<Node*> Q;
-    Q.push(s);
+    std::queue<int> Q;
+    Q.push(s->key);
     while(!Q.empty()) {
-        Node* u = G->V[Q.front()->key];
+        Vertex* u = G->V[Q.front()];
         Q.pop();
         
         List* L = G->Adj[u->key];
-        Node* node = L->nil->next;
+        Vertex* node = L->nil->next;
         while (node != L->nil) {
-            Node* v = G->V[node->key];
+            Vertex* v = G->V[node->key];
             if (v->color == WHITE) {
                 v->color = GRAY;
                 v->d = u->d + 1;
                 v->parent = u;
-                Q.push(v);
+                Q.push(v->key);
             }
             node = node->next;
         }
@@ -118,7 +113,7 @@ void bfs(Graph* G, Node* s) {
     }
 }
 
-void printPath(Graph* G, Node* s, Node* v) {
+void printPath(Graph* G, Vertex* s, Vertex* v) {
     if (v == s) {
         std::cout << s->key << " ";
     } else if (v->parent == NIL) {
@@ -134,9 +129,8 @@ int main(int argc, const char * argv[]) {
     
     Graph* G = new Graph();
     
-    for (int i = 1; i <= MAX_V_SIZE; ++i) {
-        addVertex(G, i, 0);
-    }
+    for (int i = 1; i <= MAX_V_SIZE; ++i)
+        addVertex(G, i);
 
     addEdge(G, 1, 2);
     addEdge(G, 1, 4);
